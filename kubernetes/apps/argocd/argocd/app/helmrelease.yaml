@@ -1,0 +1,21 @@
+# flux/argocd-helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  releaseName: argocd
+  chart:
+    spec:
+      chart: argo-cd
+      sourceRef:
+        kind: HelmRepository
+        name: argocd-helm-repo
+        namespace: argocd
+      version: "*"
+  interval: 1m
+  values:
+    server:
+      service:
+        type: LoadBalancer
