@@ -5,4 +5,3 @@ resources:
   - ./namespace.yaml
   - ./argocd/ks.yaml
   - ./flamingo/ks.yaml
-
