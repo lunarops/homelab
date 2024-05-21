@@ -5,7 +5,7 @@ metadata:
   name: flamingo
   namespace: argocd
 spec:
-  interval: 10m
+  interval: 1m
   targetNamespace: argocd
   releaseName: argocd
   chart:
@@ -14,7 +14,8 @@ spec:
       version: '*'
       sourceRef:
         kind: HelmRepository
-        name: argo-helm-repo
+        name: argocd
+        namespace: flux-system
   values:
     global:
       image:
