@@ -20,5 +20,5 @@ k3s_server:
   node-ip: "{{ ansible_host }}"
   secrets-encryption: true
   tls-san:
-    - "172.16.30.32"
+    - "172.16.30.24"
   write-kubeconfig-mode: "644"
