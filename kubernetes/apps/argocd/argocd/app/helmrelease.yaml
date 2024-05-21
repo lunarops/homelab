@@ -1,4 +1,4 @@
-# flux/argocd-helmrelease.yaml
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -13,9 +13,48 @@ spec:
         kind: HelmRepository
         name: argocd
         namespace: flux-system
-      version: "*"
+      version: "6.10.0"
   interval: 1m
   values:
+    global:
+      image:
+        tag: ""
+      installCRDs: true
+    controller:
+      metrics:
+        enabled: true
+      resources: {}
+    repoServer:
+      metrics:
+        enabled: true
+      resources: {}
     server:
       service:
-        type: LoadBalancer
+        type: ClusterIP
+      extraArgs: []
+      logLevel: info
+      replicas: 1
+      metrics:
+        enabled: true
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"  # Replace with your ClusterIssuer name
+          nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        paths:
+          - /
+        hosts:
+          - argocd.lunarops.net
+        tls:
+          - secretName: argocd-tls  # Secret for TLS termination
+            hosts:
+              - argocd.lunarops.net
+      resources: {}
+    applicationSet:
+      enabled: true
+      resources: {}
+    dex:
+      enabled: false
+      service:
+        type: ClusterIP
+      resources: {}
