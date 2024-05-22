@@ -30,23 +30,23 @@ spec:
       resources: {}
     server:
       service:
-        type: ClusterIP
+        type: NodePort
       extraArgs: []
       logLevel: info
       replicas: 1
       metrics:
         enabled: true
       ingress:
-        enabled: true
+        enabled: false
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"  # Replace with your ClusterIssuer name
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/ssl-redirect: "true"
         paths:
           - /
         hosts:
           - argocd.lunarops.net
         tls:
-          - secretName: argocd-tls  # Secret for TLS termination
+          - secretName: argocd-tls
             hosts:
               - argocd.lunarops.net
       resources: {}
