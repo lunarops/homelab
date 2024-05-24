@@ -145,9 +145,12 @@ spec:
           - host: "{{ .Release.Name }}.lunarops.net"
             paths:
               - path: /
-                service:
-                  identifier: app
-                  port: http
+                pathType: ImplementationSpecific
+                backend:
+                  service:
+                    name: app
+                    port:
+                      number: 80
     persistence:
       config:
         type: emptyDir
