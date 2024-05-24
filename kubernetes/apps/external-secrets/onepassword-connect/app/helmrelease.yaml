@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.1.0
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -137,7 +137,7 @@ spec:
         controller: onepassword-connect
         ports:
           http:
-            port: 80
+            port:  *apiPort
     ingress:
       app:
         className: internal
@@ -145,14 +145,11 @@ spec:
           - host: "{{ .Release.Name }}.lunarops.net"
             paths:
               - path: /
-                pathType: ImplementationSpecific
-                backend:
-                  service:
-                    name: app
-                    port:
-                      number: 80
+                service:
+                  identifier: app
+                  port: http
     persistence:
       config:
         type: emptyDir
         globalMounts:
-          - path: /config
+          - path: *configDir
