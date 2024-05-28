@@ -37,7 +37,7 @@ spec:
       metrics:
         enabled: true
       ingress:
-        enabled: false
+        enabled: true
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/ssl-redirect: "true"
